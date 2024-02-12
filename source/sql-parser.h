@@ -80,7 +80,7 @@ extern void sqlp_col_collate(struct psql_state *pstate, const char *collate);
 extern void sqlp_col_def_str(struct psql_state *pstate, const char *str);
 extern void sqlp_col_def_num(struct psql_state *pstate, int num);
 extern void sqlp_col_def_float(struct psql_state *pstate, float num);
-extern void sqlp_col_def_bool(struct psql_state *pstate, int bool);
+extern void sqlp_col_def_bool(struct psql_state *pstate, int b);
 extern void sqlp_col_key_pri(struct psql_state *pstate, int n_cols);
 extern void sqlp_col_key(struct psql_state *pstate, int n_cols);
 extern void sqlp_col_key_textidx(struct psql_state *pstate, int n_cols);
