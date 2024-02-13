@@ -27,3 +27,6 @@ libsqlpars.pc
 sqlpars-config.h*
 
 build-aux/
+
+.gdb_history
+cscope.out
