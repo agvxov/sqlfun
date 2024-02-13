@@ -25,7 +25,6 @@ main(int ac, char **av)
 	abort();
 
   if(ac > 1) {
-    puts("wut?");
     if((in_f = fopen(av[1], "r")) == NULL) {
       perror(av[1]);
       exit(1);

@@ -20,22 +20,38 @@ struct psql_state *psql_new(void)
 		return NULL;
 	}
 
+    st->buffer_state = NULL;
+
 	return st;
 }
 
-void psql_free(struct psql_state *st)
+void psql_free(struct psql_state *pstate)
 {
-	if (!st)
+	if (!pstate)
 		return;
 
-	yylex_destroy(st->scanner);
+    if (pstate->buffer_state) {
+        yy_delete_buffer(pstate->buffer_state, pstate->scanner);
+    }
 
-	free(st);
+	yylex_destroy(pstate->scanner);
+
+
+	free(pstate);
 }
 
 void psql_set_input(struct psql_state *pstate, FILE *in_f)
 {
 	yyset_in(in_f, pstate->scanner);
+}
+
+void psql_set_string_input(struct psql_state *pstate, char *in_str)
+{
+    if (pstate->buffer_state) {
+        yy_delete_buffer(pstate->buffer_state, pstate->scanner);
+    }
+
+    pstate->buffer_state = yy_scan_string(in_str, pstate->scanner);
 }
 
 int psql_parse(struct psql_state *pstate)

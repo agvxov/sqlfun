@@ -54,13 +54,19 @@ enum sqlp_date_intervals {
 	SDI_HOUR_SECOND		= 8,
 };
 
+#ifndef YY_TYPEDEF_YY_BUFFER_STATE
+typedef void* YY_BUFFER_STATE;
+#endif
+
 struct psql_state {
 	yyscan_t	scanner;
+    YY_BUFFER_STATE buffer_state;
 };
 
 extern struct psql_state *psql_new(void);
 extern void psql_free(struct psql_state *st);
 extern void psql_set_input(struct psql_state *st, FILE *f);
+extern void psql_set_string_input(struct psql_state *pstate, char *in_str);
 extern int psql_parse(struct psql_state *st);
 
 extern void sqlp_alias(struct psql_state *pstate, const char *alias);

@@ -325,7 +325,7 @@ struct psql_state;
 %start stmt_list
 
 %{
-void yyerror(YYLTYPE *, yyscan_t scanner, struct psql_state *pstate, const char *s, ...);
+void yyerror(YYLTYPE *t, yyscan_t scanner, struct psql_state *pstate, const char *s, ...);
 void lyyerror(YYLTYPE t, const char *s, ...);
  %}
   /* free discarded tokens */
@@ -975,9 +975,10 @@ yyerror(YYLTYPE *t, yyscan_t scanner, struct psql_state *pstate, const char *s, 
   va_list ap;
   va_start(ap, s);
 
-  if(t->first_line)
+  if (t->first_line) {
     fprintf(stderr, "%s:%d.%d-%d.%d: error: ", t->filename, t->first_line, t->first_column,
-	    t->last_line, t->last_column);
+        t->last_line, t->last_column);
+  }
   vfprintf(stderr, s, ap);
   fprintf(stderr, "\n");
   yyerrno = 1;
