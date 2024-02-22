@@ -69,8 +69,10 @@ static const char *cmp_names[] = {
 
 static void print_and_free(json_t *jval)
 {
+    #ifndef SILENT
 	json_dumpf(jval, stdout, JSON_COMPACT | JSON_SORT_KEYS);
 	printf("\n");
+    #endif
 	json_decref(jval);
 }
 
